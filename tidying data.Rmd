@@ -6,4 +6,20 @@ author: "Sam Dunn"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
 ```
+
+
+```{r libraries, include=FALSE, warning=FALSE,message=FALSE}
+library(tidyr)
+library(dplyr)
+```
+
+Below we read in data from the website. Use square brackets around ahyperlink to make it a hyperlink in markdown. [Mike Byerly. 2016. Alaska commercial salmon catches by management region (1886- 1997). Gulf of Alaska Data Portal. df35b.304.2.] (https://knb.ecoinformatics.org/#view/df35b.304.2)
+```{r Load Data }
+catch_df <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1",method = "libcurl"),stringsAsFactors = FALSE) #read in data from site
+head(catch_df)
+```
+
+
+
