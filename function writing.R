@@ -3,7 +3,7 @@ ftoc<-function(x) {
   return(c)
 }
 
-cel<-rnorm(400,-100,100)
+cel<-rnorm(4000,-100,100)
 
 
 far<-ftoc(cel)
