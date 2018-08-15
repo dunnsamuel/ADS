@@ -1,0 +1,107 @@
+---
+title: "Arctic Data Science Training"
+author: "Sam Dunn"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+ipak <- function(pkg){
+    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE, repos='http://cran.us.r-project.org')
+    sapply(pkg, require, character.only = TRUE)
+}
+
+# usage
+packages <- c("ggplot2", 
+              "plyr", 
+              "reshape2", 
+              "RColorBrewer", 
+              "scales", 
+              "grid",
+              "VennDiagram",
+              "vegan",
+              "RAM",
+              "tidyr",
+              "Rmisc",
+              "reshape","reshape2",
+              "gapminder","magrittr","dplyr","ggpubr","gridExtra","
+              patternplot","tibble","gplots","broom","data.table","nlme","devtools","bibtex","ggstatplot")
+ipak(packages)
+
+
+```
+
+## R Markdown
+
+
+
+* First bullet
+  + second bullet
+  + third bullet
+  
+*Australopithicus afarensis*
+
+```{r}
+BGchem <- read.csv("BGchem2008data.csv", stringsAsFactors=F)
+```
+
+
+```{r}
+tidy(cars)
+
+thirteen<-seq(1,15,3)
+tidy(thirteen)
+```
+```{r}
+head(BGchem)
+plot(BGchem$CTD_Depth,BGchem$CTD_Temperature)
+
+```
+
+```{r}
+ggplot2::ggplot(BGchem,aes(x=CTD_Temperature,y=O2))+
+  geom_point()+
+  geom_smooth(method="lm")+
+  theme_classic()+scale_fill_brewer()
+```
+
+adsfkljasdlk;fjsa;l
+
+```{r Get Data from URL}
+# Read and plot data from doi:10.18739/A25T3FZ8X
+bg_chem_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A35ad7624-b159-4e29-a700-0c0770419941"
+bg_chem = read.csv((bg_chem_url), stringsAsFactors = FALSE)
+plot(bg_chem$CTD_Depth, bg_chem$CTD_Temperature)
+```
+
+```{r Get Data from DOI in DataOne Repository}
+doi_packages <- c( "datapack", "dataone", "EML")
+for (package in doi_packages) { 
+  if (!(package %in% installed.packages())) { 
+    install.packages(package) 
+  } 
+}
+
+rm(doi_packages) #remove variables from workspace
+
+
+library(dataone)
+library(datapack)
+
+
+
+doi <- "doi:10.5063/F1Z036CP" #dataset-specific doi
+client <- D1Client("PROD", "urn:node:KNB") #DataOne clinet function  PROD=data one environemt (product in this case...other options possible) #second argument is the node ID
+pkg <- getDataPackage(client, doi)
+
+
+getIdentifiers(pkg)
+do <- getMember(pkg, getIdentifiers(pkg)[3]) #takes data package and identifier and returns data object
+csvtext <- rawToChar(getData(do)) #convert raw to caharacter data
+dframe <- read.csv(textConnection(csvtext), stringsAsFactors = FALSE) #rewad character data into a csv format and produce a df
+head(dframe)
+```
+
