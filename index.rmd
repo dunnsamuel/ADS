@@ -1,9 +1,6 @@
 ---
-title:"Demo"
-author:"Sam Dunn"
-output:html_dcoument
 ---
-Websites display files called"index" by default.  Lowercase "index" or it won't work
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
