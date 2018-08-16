@@ -108,13 +108,13 @@ catch_range
 ```{r}
 catch_aov<-catch_df %>% 
   group_by(Year) %>% 
-  do(tidy(TukeyHSD(aov(data=.,catchTHOUSADS~species)))) %>% 
+  do(tidy(aov(data=.,catchTHOUSADS~species))) %>% 
   filter(Year<="1997" & Year>="1990")
 
 catch_aov
 ```
 
-##Joins
+##Joins##
 Left joins return all left columns and any matching right columns that have matching key.  Have a key for every table!  In this case it is our region code column.  Left joins are the standrad case for joins....under rare circumstancs are Right or full joins done.
 ```{r}
 regdef<-read.csv("df35b.303.1.csv",stringsAsFactors = F)
@@ -126,4 +126,8 @@ joined_tab<-left_join(catch_df,regdef, by="Region") #left join!
 ```
 
 c() is the *concatenator* function. Instead  renaming code to Region like I did I could list both keys in the same order as the arguments in the join.  c("Region"="code")
+
+# Visulaization#
+GGPlot and leaflet for plots and maps, respectively.  Related question....how do I use bibtex files in markdown?  W're building a webpage!  Using github as the host
+
 
