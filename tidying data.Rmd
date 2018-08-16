@@ -13,12 +13,74 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r libraries, include=FALSE, warning=FALSE,message=FALSE}
 library(tidyr)
 library(dplyr)
+library(broom)
 ```
 
 Below we read in data from the website. Use square brackets around ahyperlink to make it a hyperlink in markdown. [Mike Byerly. 2016. Alaska commercial salmon catches by management region (1886- 1997). Gulf of Alaska Data Portal. df35b.304.2.] (https://knb.ecoinformatics.org/#view/df35b.304.2)
 ```{r Load Data }
 catch_df <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1",method = "libcurl"),stringsAsFactors = FALSE) #read in data from site
 head(catch_df)
+
+```
+
+```{r eval=FALSE, include=FALSE}
+library(RSQLite)
+data(mtcars)
+cars.df<-mtcars
+conn <- dbConnect(SQLite(),'cars.df')
+#dbWriteTable(conn, "cars", mtcars)
+dbListTables(conn)
+dbListFields(conn, "cars")
+```
+```{r eval=FALSE, include=FALSE}
+efficient.df<-dbGetQuery(conn, "SELECT * FROM cars WHERE mpg > 20")
+
+```
+
+
+keyobard shortcut  ctrl+shift+m => %>% 
+
+Go back to using catch df
+
+startswith, endswith, contains  in select command
+```{r Pipe Operators}
+catch_df<-catch_df %>% 
+  select(-All,-notesRegCode)
+
+```
+
+
+```{r}
+catch_df<-catch_df %>% 
+  gather(key="species",value="catch", -Region, -Year) #tranposes df
+```
+Exlude grouping variables so they dont get transposed...exclude sing "-"
+
+
+Rename a column
+```{r}
+catch_df<-catch_df %>% 
+  rename(catch_thousands=catch)# %>% #new name=old name
+  
+  
+  
+```
+
+```{r}
+catch_integers<-as.integer(catch_df$catch_thousands)
+i=which(is.na(catch_integers)=="TRUE")
+
+catch_df$catch_thousands[i]
+```
+
+
+```{r}
+catch_df <-catch_df %>% 
+  mutate(catch_thousands=ifelse(catch_thousands=="I",1,catch_thousands)) %>% #conditional test to rename bad value
+  mutate(catch_thousands=as.integer(catch_thousands))%>% 
+  rename(catchTHOUSADS=catch_thousands)
+  
+head(catch_df)  
 ```
 
 
