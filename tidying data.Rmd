@@ -83,5 +83,32 @@ catch_df <-catch_df %>%
 head(catch_df)  
 ```
 
+#Split , Apply Combine
+```{r}
+catch_summarised<-catch_df %>% 
+  group_by(Region) %>% 
+  summarise(catch_mean=mean(catchTHOUSADS))
+
+catch_summarised
+```
+
+```{r}
+catch_range<-catch_df %>% 
+  group_by(Region) %>% 
+  summarise(catchlow=range(catchTHOUSADS)[1],
+            catchhigh=range(catchTHOUSADS)[2],
+            catchmed=median(catchTHOUSADS))
+
+catch_range
+```
+
+
+
+```{r}
+library(ggplot2)
+ggplot(catch_summarised,aes(x=Year,y=catch_mean),fill=Region,group=Region, color=Region)+
+  geom_point()+geom_smooth(method="lm")
+```
+
 
 
