@@ -232,3 +232,8 @@ leaflet(locs) %>%
   addMarkers(~ Longitude, ~ Latitude, popup = ~ Location, icon = markerIcon)
 ```
 
+
+```{r}
+
+```
+
