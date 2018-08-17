@@ -12,8 +12,35 @@ library(rfishbase)
 ```
 
 ```{r}
-
 fish <- c("Oreochromis niloticus", "Salmo trutta")
 fish <- validate_names(c("Oreochromis niloticus", "Salmo trutta"))
+```
+```{r}
+fish <- species_list(Genus = "Labroides")
+fish
+```
+
+```{r}
+fish_common <- common_to_sci("trout")
+fish_common
+```
+
+## NOAA and APIs
+
+```{r}
+#install.packages("rnoaa")
+#install.packages("ncdf4")
+library(rnoaa)
+library(ncdf4)
+ 
+```
+
+
+We pull data directly from NOAA using their API.  USGSand EPA have similartools!
+```{r}
+# Go here: http://www.ndbc.noaa.gov/
+# Find a station ID, like https://www.ndbc.noaa.gov/station_page.php?station=46080
+LM=buoy(dataset = 'cwind', buoyid = 45007, year = 2016, datatype = "c")
+LMbuoy<-LM$data       
 ```
 
