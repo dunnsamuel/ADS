@@ -1,0 +1,37 @@
+---
+title: "Reproducible Papers"
+author: "Sam Dunn"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+We will use {rrtools} to generate reproducible manuscripts and even ombine al elements of a paper into a package.  use the [@citation] format to access the .bib file in the wd.  Can also control reference styles programmatically.
+
+
+## Mathematical Notation
+\[\sum{i=}^{N}{log(i)+ \frac{\omega}[x]}\]  Write in \[latex\] or mathjacks
+
+
+use kable for satic figure...or htmltable for pretty formatting
+
+Create microchunks using single back-ticks `1+1`
+This allows us to embed results in text directly!
+
+## rrTools
+Uility package that helps set up R packages for publication. We will primarily use the command [createcompendium].  rrtools isn' on CRAN yet, so we can use the devtols package.
+```{r}
+# install.packages("devtools")
+#devtools::install_github("benmarwick/rrtools")
+library(rrtools)
+
+```
+
+Be carefult o set th wd to a location where you want this new package to be placed.  I left it in place
+```{r}
+#create_compendium("testpaper2")  one time operation.  generates whole directory to support paper writing!
+```
+
+
