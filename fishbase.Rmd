@@ -44,3 +44,8 @@ LM=buoy(dataset = 'cwind', buoyid = 45007, year = 2016, datatype = "c")
 LMbuoy<-LM$data       
 ```
 
+
+```{r}
+
+```
+
