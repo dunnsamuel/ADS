@@ -1,0 +1,19 @@
+---
+title: "Fishbase"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(fansi)
+library(rfishbase)
+```
+
+```{r}
+
+fish <- c("Oreochromis niloticus", "Salmo trutta")
+fish <- validate_names(c("Oreochromis niloticus", "Salmo trutta"))
+```
+
